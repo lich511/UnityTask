@@ -6,23 +6,24 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    public float speed = 0.1f;//скорость движения камеры в право-влево
-    public bool taked = false;//схвачен ли объект
-	GameObject takedObject = null;//схваченный объект
+    public float speed = 0.1f;//СЃРєРѕСЂРѕСЃС‚СЊ РґРІРёР¶РµРЅРёСЏ РєР°РјРµСЂС‹ РІ РїСЂР°РІРѕ-РІР»РµРІРѕ
+    public bool taked = false;//СЃС…РІР°С‡РµРЅ Р»Рё РѕР±СЉРµРєС‚
+	GameObject takedObject = null;//СЃС…РІР°С‡РµРЅРЅС‹Р№ РѕР±СЉРµРєС‚
 
-	
+
 
     // Update is called once per frame
+    //СЌС‚РѕС‚ СЃРєСЂРёРїС‚ Р»РµР¶РёС‚ Сѓ РєР°РјРµСЂС‹
     void Update()
     {
 		if (Input.touchCount > 0)
         {
-			//запись ворлдовских координат куда нажал игрок
+			//Р·Р°РїРёСЃСЊ РІРѕСЂР»РґРѕРІСЃРєРёС… РєРѕРѕСЂРґРёРЅР°С‚ РєСѓРґР° РЅР°Р¶Р°Р» РёРіСЂРѕРє
 			Touch touch = Input.GetTouch(0);
 			Vector2 touchPos = touch.position;
 			Vector3 touchPosinWorldSpace = Camera.main.ScreenToWorldPoint(new Vector3(touchPos.x, touchPos.y, Camera.main.nearClipPlane));
 
-			//отправка луча с целью проверить, нажал ли игрок на объект
+			//РѕС‚РїСЂР°РІРєР° Р»СѓС‡Р° СЃ С†РµР»СЊСЋ РїСЂРѕРІРµСЂРёС‚СЊ, РЅР°Р¶Р°Р» Р»Рё РёРіСЂРѕРє РЅР° РѕР±СЉРµРєС‚
 			if (touch.phase == TouchPhase.Began)
 			{
 				RaycastHit2D hit = Physics2D.Raycast(touchPosinWorldSpace, -Vector2.up);
@@ -37,7 +38,7 @@ public class PlayerScript : MonoBehaviour
 				}
 			}
 
-			//забыание объекта после убирания пальца с экрана
+			//Р·Р°Р±С‹Р°РЅРёРµ РѕР±СЉРµРєС‚Р° РїРѕСЃР»Рµ СѓР±РёСЂР°РЅРёСЏ РїР°Р»СЊС†Р° СЃ СЌРєСЂР°РЅР°
 			if (touch.phase == TouchPhase.Ended)
 			{
 				if(taked)
@@ -48,7 +49,7 @@ public class PlayerScript : MonoBehaviour
 				}
 			}
 
-			//движение объекта или движение камеры вправо-влево
+			//РґРІРёР¶РµРЅРёРµ РѕР±СЉРµРєС‚Р° РёР»Рё РґРІРёР¶РµРЅРёРµ РєР°РјРµСЂС‹ РІРїСЂР°РІРѕ-РІР»РµРІРѕ
             if (touch.phase == TouchPhase.Moved)
             {
                 if (!taked)
